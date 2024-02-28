@@ -9,6 +9,7 @@ use App\Models\Property;
 use App\Models\Option;
 
 use App\Http\Requests\Admin\PropertyFormRequest;
+use App\Models\option_property;
 
 class PropertyController extends Controller
 {
@@ -65,6 +66,7 @@ class PropertyController extends Controller
             'sold' => 'required',
             'options' => ['array', 'exists:options,id','required']
         ]);
+
         $property = new Property();
         $property->title = $request-> title;
         $property->description = $request-> description;
@@ -77,10 +79,17 @@ class PropertyController extends Controller
         $property->address = $request->address;
         $property->postal_code = $request->postal_code;
         $property->sold = $request->sold;
-        $property->options()->sync($request);
-        $property->save();
 
-       return to_route('admin.property.index')->with('success', 'Le bien a bien ete cree');
+        $property->save();
+            $OP = new option_property();
+
+            $option = Option::pluck('name', 'id');
+            $option ->pluck('id');
+            $OP->property_id = $property->id;
+            $OP->option_id = $option;
+            $OP->save();
+           return to_route('admin.property.index')->with('success', 'Le bien a bien ete cree');
+
     }
 
 
@@ -132,8 +141,10 @@ class PropertyController extends Controller
         $property->sold = $request->sold;
         $property->options = $request->options;
 
-
         $property->update();
+        $OP = new option_property();
+        $OP->property_id = $property->id;
+
        return to_route('admin.property.index')->with('success', 'Le bien a bien ete modifie');
 
     }

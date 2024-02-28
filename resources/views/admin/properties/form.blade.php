@@ -19,7 +19,7 @@
         <div class="col row">
             @include('shared.input', ['class'=> 'col', 'name'=> 'surface', 'value' =>$property->surface])
             @include('shared.input', ['class'=> 'col', 'name'=> 'price', 'label'=>'Prix', 'value' =>$property->price])
-          </div>
+        </div>
       </div>
       @include('shared.input', ['type' =>'textarea', 'name'=> 'description', 'value' =>$property->description])
       <div class="row">
@@ -32,9 +32,14 @@
         @include('shared.input', ['class'=> 'col', 'name'=> 'address', 'label'=>'Addresse', 'value' =>$property->address])
         @include('shared.input', ['class'=> 'col', 'name'=> 'postal_code', 'label'=>'Code postal', 'value' =>$property->postal_code])
       </div>
-      @include('shared.select', ['class'=> 'col', 'name'=> 'options', 'label'=>'options', 'value' =>$property->options()->pluck('id'), 'multiple'=>true])
+      <div>
+        @include('shared.select', ['class'=> 'col', 'name'=> 'options', 'label'=>'Options', 'value' =>$property->options()->pluck('id'), 'multiple'=>true])
+      </div>
       @include('shared.checkbox', ['name'=> 'sold', 'label'=>'Vendu', 'value' =>$property->sold, 'options'=>$options])
       <div>
+
+       
+
         <button class="btn btn-primary">
             @if ($property->exists)
                 Modifier
