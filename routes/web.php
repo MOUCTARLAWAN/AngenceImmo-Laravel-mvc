@@ -21,8 +21,8 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->name('admin.')->group(function(){
-    Route::resource('property', \App\Http\Controllers\Admin\PropertyController::class)->except(['show']);
-    Route::resource('option', \App\Http\Controllers\Admin\OptionController::class)->except(['show']);
+    Route::resource('property', PropertyController::class)->except(['show']);
+    Route::resource('option', OptionController::class)->except(['show']);
 });
 // Route::prefix('/admin')->name('admin.')->controller(PropertyController::class)->group(function(){
 //     Route::get('/property', 'index')->name('index');
